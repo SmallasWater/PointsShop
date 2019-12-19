@@ -40,7 +40,7 @@ public class PlayerShop extends PluginBase {
             return;
         }
         if(!new File(this.getDataFolder()+"/Shops").exists()){
-            if(!new File(this.getDataFolder()+"/Shops").mkdir()){
+            if(!new File(this.getDataFolder()+"/Shops").mkdirs()){
                 Server.getInstance().getLogger().info("文件夹Shops创建失败");
             }
         }
@@ -48,7 +48,7 @@ public class PlayerShop extends PluginBase {
         this.reloadConfig();
         for(String name:getShops().keySet()){
             if(!new File(this.getDataFolder()+"/Shops/"+name).exists()){
-                if(!new File(this.getDataFolder()+"/Shops/"+name).mkdir()){
+                if(!new File(this.getDataFolder()+"/Shops/"+name).mkdirs()){
                     this.getLogger().info("创建商城 "+name+"失败");
                 }
             }

@@ -45,10 +45,12 @@ public class Items<T extends BaseSubClass> {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Items){
-            return name.equals(((Items) obj).getName()) && lastShop.equals(((Items) obj).getLastShop());
+            return name.equals(((Items) obj).getName());
         }
         return false;
     }
+
+
 
     private void setFile(File file) {
         this.file = file;

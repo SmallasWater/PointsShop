@@ -47,7 +47,7 @@ public class ShopClass {
         if(new File(PlayerShop.getInstance().getDataFolder()+"/Shops/"+name).exists()){
             return false;
         }else{
-            if(!new File(PlayerShop.getInstance().getDataFolder()+"/Shops/"+name).mkdir()){
+            if(!new File(PlayerShop.getInstance().getDataFolder()+"/Shops/"+name).mkdirs()){
                 Server.getInstance().getLogger().warning("创建商城 "+name+"失败");
                 return false;
             }else{
@@ -65,8 +65,16 @@ public class ShopClass {
         }
     }
 
+    private boolean exitItems(String name){
+        for(Items items:items){
+            if(items.getName().equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean createItems(String name){
-        if(items.contains(new Items(getName(),name))){
+        if(exitItems(name)){
             return false;
         }else{
             PlayerShop.getInstance().saveResource("shop.yml","/Shops/"+this.name+"/"+name+".yml",false);
@@ -80,18 +88,20 @@ public class ShopClass {
     }
 
     public boolean removeItems(String name){
-       return removeItems(new Items(getName(),name));
+       return removeItems(getItemByName(name));
     }
 
     public boolean removeItems(Items name){
-        if(!items.contains(name)){
+        if(name == null){
             return false;
         }else{
-            File file = new File(this.file+"/"+name+".yml");
+            File file = new File(this.file+"/"+name.getName()+".yml");
             items.remove(name);
             if(file.exists()){
                 if(!file.delete()){
                     Server.getInstance().getLogger().warning("删除文件: "+file+"失败 请手动删除");
+                }else{
+                    Server.getInstance().getLogger().info("删除文件: "+file+"成功");
                 }
             }
             return true;
@@ -111,7 +121,7 @@ public class ShopClass {
 
     public Items<BaseSubClass> getItemByName(String name){
         for(Items<BaseSubClass> items: this.items){
-            if(items.equals(new Items<>(this.name, name))){
+            if(items.getName().equals(name)){
                 return items;
             }
         }
@@ -120,15 +130,13 @@ public class ShopClass {
 
 
 
-    private static final Pattern F =  Pattern.compile("^.yml$");
     private void init(){
         File[] files = file.listFiles();
         if(files != null){
             for(File file:files){
                 if(file.isFile()){
-                    if(F.matcher(file.getName()).matches()){
-                        items.add(Items.loadFile(getName(),file));
-                    }
+                    items.add(Items.loadFile(getName(),file));
+
                 }
             }
         }
