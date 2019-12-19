@@ -23,8 +23,6 @@ import java.util.Map;
 public class PlayerShop extends PluginBase {
     private static PlayerShop instance;
 
-    public File dirShop = new File(this.getDataFolder()+"/Shops/");
-
     public LinkedList<ShopClass> shop = new LinkedList<>();
 
     public LinkedHashMap<Player,Boolean> canCmd = new LinkedHashMap<>();
@@ -41,19 +39,16 @@ public class PlayerShop extends PluginBase {
         if(AutoData.defaultUpData(this,getFile(),"SmallasWater","PointsShop")){
             return;
         }
-        if(!dirShop.exists()){
-            this.getLogger().info("不存在shops ");
-            if(!dirShop.mkdir()){
-                Server.getInstance().getLogger().info("文件夹"+dirShop+"创建失败");
+        if(!new File(this.getDataFolder()+"/Shops").exists()){
+            if(!new File(this.getDataFolder()+"/Shops").mkdir()){
+                Server.getInstance().getLogger().info("文件夹Shops创建失败");
             }
-        }else{
-            this.getLogger().info("存在shops ");
         }
         this.saveDefaultConfig();
         this.reloadConfig();
         for(String name:getShops().keySet()){
-            if(!new File(dirShop+name+"/").exists()){
-                if(!new File(dirShop+name+"/").mkdir()){
+            if(!new File(this.getDataFolder()+"/Shops/"+name).exists()){
+                if(!new File(this.getDataFolder()+"/Shops/"+name).mkdir()){
                     this.getLogger().info("创建商城 "+name+"失败");
                 }
             }
@@ -72,19 +67,6 @@ public class PlayerShop extends PluginBase {
 
     public static PlayerShop getInstance() {
         return instance;
-    }
-
-    private File[] getShopDirectory(){
-        ArrayList<File> files = new ArrayList<>();
-        File[] files1 = dirShop.listFiles();
-        if(files1 != null){
-            for (File file:files1){
-                if(file.isDirectory()){
-                    files.add(file);
-                }
-            }
-        }
-        return files.toArray(new File[]{});
     }
 
     public LinkedHashMap<String,String> getShops(){

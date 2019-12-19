@@ -30,7 +30,7 @@ public class ShopClass {
     }
 
     public ShopClass(String name){
-        this(new File(PlayerShop.getInstance().dirShop+"/"+name+"/"));
+        this(new File(PlayerShop.getInstance().getDataFolder()+"/Shops/"+name));
 
     }
 
@@ -44,10 +44,10 @@ public class ShopClass {
     }
 
     public static boolean createShopClass(String name){
-        if(new File(PlayerShop.getInstance().dirShop+name+"/").exists()){
+        if(new File(PlayerShop.getInstance().getDataFolder()+"/Shops/"+name).exists()){
             return false;
         }else{
-            if(!new File(PlayerShop.getInstance().dirShop+name+"/").mkdir()){
+            if(!new File(PlayerShop.getInstance().getDataFolder()+"/Shops/"+name).mkdir()){
                 Server.getInstance().getLogger().warning("创建商城 "+name+"失败");
                 return false;
             }else{
@@ -70,10 +70,10 @@ public class ShopClass {
             return false;
         }else{
             PlayerShop.getInstance().saveResource("shop.yml","/Shops/"+this.name+"/"+name+".yml",false);
-            Config config = new Config(this.name+"/"+name+".yml",Config.YAML);
+            Config config = new Config(this.file+"/"+name+".yml",Config.YAML);
             config.set("name",name);
             config.save();
-            File file = new File(this.name+"/"+name+".yml");
+            File file = new File(this.file+"/"+name+".yml");
             addItems(file);
             return true;
         }
@@ -87,7 +87,7 @@ public class ShopClass {
         if(!items.contains(name)){
             return false;
         }else{
-            File file = new File(this.name+"/"+name+".yml");
+            File file = new File(this.file+"/"+name+".yml");
             items.remove(name);
             if(file.exists()){
                 if(!file.delete()){

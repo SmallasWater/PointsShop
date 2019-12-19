@@ -3,6 +3,8 @@ main: net.playershop.PlayerShop
 version: 1.0.0
 api: 1.0.9
 author: 若水
+depend:
+    - playerPoints
 permissions:
     point.shop:
         default: true
