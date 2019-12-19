@@ -1,0 +1,8 @@
+GUI标题: "点券商店"
+
+#  商城
+商城:
+ VIP商城 : "textures/blocks/brick"
+ 点券物品商城: "textures/items/diamond_pickaxe"
+ 套装商城: "textures/items/bread"
+ 金币商城: "textures/ui/inventory_icon"

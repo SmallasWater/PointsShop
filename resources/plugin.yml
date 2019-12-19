@@ -1,0 +1,27 @@
+name: PointsShop
+main: net.playershop.PlayerShop
+version: 1.0.0
+api: 1.0.9
+author: 若水
+permissions:
+    point.shop:
+        default: true
+        description: "点券商店主命令"
+    point.shop.create:
+        default: op
+        description: "创建商店"
+    point.shop.add:
+        default: op
+        description: "添加货物"
+    point.shop.remove:
+        default: op
+        description: "删除商城"
+    point.shop.del:
+        default: op
+        description: "删除货物"
+    point.shop.up:
+        default: op
+        description: "货物添加物品"
+    point.shop.down:
+        default: op
+        description: "货物减少物品"
