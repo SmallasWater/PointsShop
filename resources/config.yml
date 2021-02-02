@@ -1,0 +1,11 @@
+GUI标题: "&e&l点券商店"
+货币名称: "&e点券&r"
+
+# 支持 EconomyAPI Money ,PlayerPoint
+使用经济核心: EconomyAPI
+#  商城
+商城:
+ VIP商城 : "textures/blocks/brick"
+ 点券物品商城: "textures/items/diamond_pickaxe"
+ 套装商城: "textures/items/bread"
+ 金币商城: "textures/ui/inventory_icon"
