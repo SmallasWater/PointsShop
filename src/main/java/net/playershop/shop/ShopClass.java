@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class ShopClass {
 
-    private LinkedList<Items<BaseSubClass> > items = new LinkedList<>();
+    private LinkedList<Items<BaseSubClass>> items = new LinkedList<>();
     private String name;
     private File file;
 

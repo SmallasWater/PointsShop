@@ -73,7 +73,7 @@ public class PlayerShop extends PluginBase {
         }
 
 //        playerFiles = getPlayerFiles();
-        loadEconomy();
+        loadMoney = loadEconomy(getConfig().getString("使用经济核心","default"),true);
         this.getServer().getCommandMap().register("PointsShop",new ShopCommand(this));
         this.getServer().getPluginManager().registerEvents(new WindowListener(),this);
 //        this.getServer().getScheduler().scheduleRepeatingTask(this,new PluginTask<PlayerShop>(this) {
@@ -91,25 +91,33 @@ public class PlayerShop extends PluginBase {
         return loadMoney;
     }
 
-    private void loadEconomy(){
-        loadMoney = new LoadMoney();
-        String economy = getConfig().getString("使用经济核心","default");
+    public LoadMoney loadEconomy(String economy,boolean canSendMessage){
+        LoadMoney loadMoney = new LoadMoney();
         if(loadMoney.getMoney() != -1) {
-            if ("default".equalsIgnoreCase(economy)) {
-                getLogger().info(getTitle()+"经济核心已启用:" + TextFormat.GREEN + " 自动");
+            if(canSendMessage) {
+                if ("default".equalsIgnoreCase(economy)) {
+                    getLogger().info(getTitle() + "经济核心已启用:" + TextFormat.GREEN + " 自动");
+                }
             }
             if ("money".equalsIgnoreCase(economy)) {
                 loadMoney.setMoney(LoadMoney.MONEY);
-                getLogger().info(getTitle()+" 经济核心已启用:" + TextFormat.GREEN + " Money");
+                if(canSendMessage) {
+                    getLogger().info(getTitle() + " 经济核心已启用:" + TextFormat.GREEN + " Money");
+                }
             }
             if ("playerpoint".equalsIgnoreCase(economy)) {
                 loadMoney.setMoney(LoadMoney.PLAYER_POINT);
-                getLogger().info(getTitle()+" 经济核心已启用:" + TextFormat.GREEN + " PlayerPoints");
+                if(canSendMessage) {
+                    getLogger().info(getTitle() + " 经济核心已启用:" + TextFormat.GREEN + " PlayerPoints");
+                }
             } else {
                 loadMoney.setMoney(LoadMoney.ECONOMY_API);
-                getLogger().info(getTitle()+" 经济核心已启用:" + TextFormat.GREEN + " EconomyAPI");
+                if(canSendMessage) {
+                    getLogger().info(getTitle() + " 经济核心已启用:" + TextFormat.GREEN + " EconomyAPI");
+                }
             }
         }
+        return loadMoney;
 
     }
 

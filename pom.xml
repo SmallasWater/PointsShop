@@ -6,7 +6,7 @@
 
     <groupId>com.smallaswater.pointsshop</groupId>
     <artifactId>PointsShop</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1.8</version>
     <dependencies>
         <dependency>
             <groupId>cn.nukkit</groupId>

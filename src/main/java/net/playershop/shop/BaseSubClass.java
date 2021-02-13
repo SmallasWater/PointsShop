@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.command.ConsoleCommandSender;
 import cn.nukkit.item.Item;
+import net.playershop.utils.LoadMoney;
 
 import java.util.LinkedHashMap;
 
@@ -18,6 +19,7 @@ public abstract class BaseSubClass{
     }
 
     private String name;
+
 
 
     protected String message;

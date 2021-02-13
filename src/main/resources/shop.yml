@@ -1,4 +1,6 @@
 name: ""
 button-image: "textures/ui/inventory_icon"
 point: 100.0
+loadMoney: PlayerPoint
+moneyName: "&e点券&r"
 items: []

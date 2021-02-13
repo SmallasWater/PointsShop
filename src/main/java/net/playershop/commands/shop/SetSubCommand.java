@@ -7,6 +7,9 @@ import net.playershop.shop.BaseSubClass;
 import net.playershop.shop.Items;
 import net.playershop.shop.ShopClass;
 
+/**
+ * @author SmallasWater
+ */
 public class SetSubCommand extends BaseSubCommand {
     public SetSubCommand(PlayerShop plugin) {
         super(plugin);

@@ -8,6 +8,7 @@ import net.player.api.Point;
 import net.playershop.PlayerShop;
 import net.playershop.players.BuyItemData;
 import net.playershop.players.PlayerFile;
+import net.playershop.utils.LoadMoney;
 
 import java.io.File;
 import java.util.Date;
@@ -38,6 +39,12 @@ public class Items<T extends BaseSubClass> {
     private LinkedList<T> subClass = new LinkedList<>();
 
 
+    private LoadMoney loadMoney;
+
+    private String moneyName;
+
+
+
     private Items(String last,String name,double point){
         this.name = name;
         this.point = point;
@@ -54,6 +61,18 @@ public class Items<T extends BaseSubClass> {
             return name.equals(((Items) obj).getName());
         }
         return false;
+    }
+
+    public void setMoneyName(String moneyName) {
+        this.moneyName = moneyName;
+    }
+
+    public String getMoneyName() {
+        return moneyName;
+    }
+
+    public LoadMoney getLoadMoney() {
+        return loadMoney;
     }
 
 
@@ -89,12 +108,29 @@ public class Items<T extends BaseSubClass> {
         }
         items.setImage(config.getString("button-image"));
         items.setFile(file);
+        if(!"".equalsIgnoreCase(config.getString("loadMoney"))){
+            items.setLoadMoney(PlayerShop.getInstance().loadEconomy(config.getString("loadMoney"),false));
+        }else{
+            items.setLoadMoney(PlayerShop.getInstance().getLoadMoney());
+        }
+        if(!"".equalsIgnoreCase(config.getString("moneyName"))){
+            items.setMoneyName(config.getString("moneyName"));
+        }else{
+            items.setMoneyName(PlayerShop.getInstance().getMoneyName());
+        }
+
+
 //        items.setBuyCount(buyCount);
 //        items.setResetTime(resetTime);
 
         return items;
     }
-//
+
+    private void setLoadMoney(LoadMoney loadMoney) {
+        this.loadMoney = loadMoney;
+    }
+
+    //
 //    private void setBuyCount(int buyCount) {
 //        this.buyCount = buyCount;
 //    }
@@ -216,10 +252,9 @@ public class Items<T extends BaseSubClass> {
                 }
             }
 //            file.addBuyCount(this);
-
-            PlayerShop.getInstance().getLoadMoney().reduceMoney(player, this.point);
+            getLoadMoney().reduceMoney(player, this.point);
         }else{
-            player.sendMessage("§e["+PlayerShop.getInstance().getTitle()+"] §c 抱歉，您的"+PlayerShop.getInstance().getMoneyName()+"不足..");
+            player.sendMessage("§e["+PlayerShop.getInstance().getTitle()+"] §c 抱歉，您的"+getMoneyName()+"不足..");
         }
     }
 
@@ -229,6 +264,6 @@ public class Items<T extends BaseSubClass> {
     public String toString() {
         return "§6名称: "+name+"\n\n"+(subClass.size() > 0?"§a货物: §r\n\n"+subClass.toString():"§a货物: §c暂无")
                 .replace("[","").replace(", ","\n")
-                .replace("]","")+"\n"+"§b价格: §e"+point+" §6"+ PlayerShop.getInstance().getMoneyName();
+                .replace("]","")+"\n"+"§b价格: §e"+point+" §6"+ getMoneyName();
     }
 }
