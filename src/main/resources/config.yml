@@ -1,7 +1,7 @@
 GUI标题: "&e&l点券商店"
 货币名称: "&e点券&r"
 
-# 支持 EconomyAPI Money ,PlayerPoint
+# 支持 EconomyAPI, Money, PlayerPoint, LlamaEconomy
 使用经济核心: EconomyAPI
 #  商城
 商城:

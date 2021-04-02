@@ -94,21 +94,24 @@ public class PlayerShop extends PluginBase {
     public LoadMoney loadEconomy(String economy,boolean canSendMessage){
         LoadMoney loadMoney = new LoadMoney();
         if(loadMoney.getMoney() != -1) {
-            if(canSendMessage) {
-                if ("default".equalsIgnoreCase(economy)) {
+            if ("default".equalsIgnoreCase(economy)) {
+                if (canSendMessage) {
                     getLogger().info(getTitle() + "经济核心已启用:" + TextFormat.GREEN + " 自动");
                 }
-            }
-            if ("money".equalsIgnoreCase(economy)) {
+            }else if ("money".equalsIgnoreCase(economy)) {
                 loadMoney.setMoney(LoadMoney.MONEY);
                 if(canSendMessage) {
                     getLogger().info(getTitle() + " 经济核心已启用:" + TextFormat.GREEN + " Money");
                 }
-            }
-            if ("playerpoint".equalsIgnoreCase(economy)) {
+            } else if ("playerpoint".equalsIgnoreCase(economy)) {
                 loadMoney.setMoney(LoadMoney.PLAYER_POINT);
-                if(canSendMessage) {
+                if (canSendMessage) {
                     getLogger().info(getTitle() + " 经济核心已启用:" + TextFormat.GREEN + " PlayerPoints");
+                }
+            } else if ("llamaeconomy".equalsIgnoreCase(economy)) {
+                loadMoney.setMoney(LoadMoney.LLAMA_ECONOMY);
+                if (canSendMessage) {
+                    getLogger().info(getTitle() + " 经济核心已启用:" + TextFormat.GREEN + " LlamaEconomy");
                 }
             } else {
                 loadMoney.setMoney(LoadMoney.ECONOMY_API);

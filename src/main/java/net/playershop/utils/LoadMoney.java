@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import me.onebone.economyapi.EconomyAPI;
 import money.Money;
+import net.lldv.llamaeconomy.LlamaEconomy;
 import net.player.api.Point;
 
 
@@ -12,23 +13,26 @@ import net.player.api.Point;
  *
  * @author SmallasWater*/
 public class LoadMoney {
-    public static final int MONEY = 1;
+
     public static final int ECONOMY_API = 0;
+    public static final int MONEY = 1;
     public static final int PLAYER_POINT = 2;
+    public static final int LLAMA_ECONOMY = 3;
 
     private int money;
 
     public LoadMoney(){
-        if(Server.getInstance().getPluginManager().getPlugin("EconomyAPI") != null){
-            money = ECONOMY_API;
-        }else if(Server.getInstance().getPluginManager().getPlugin("Money") != null){
-            money = MONEY;
-        }else if(Server.getInstance().getPluginManager().getPlugin("playerPoints") != null){
-            money = PLAYER_POINT;
-        }else{
-            money = -1;
+        if (Server.getInstance().getPluginManager().getPlugin("EconomyAPI") != null) {
+            this.money = ECONOMY_API;
+        } else if (Server.getInstance().getPluginManager().getPlugin("Money") != null) {
+            this.money = MONEY;
+        } else if (Server.getInstance().getPluginManager().getPlugin("playerPoints") != null) {
+            this.money = PLAYER_POINT;
+        } else if (Server.getInstance().getPluginManager().getPlugin("LlamaEconomy") != null) {
+            this.money = LLAMA_ECONOMY;
+        } else {
+            this.money = -1;
         }
-
     }
 
     public int getMoney() {
@@ -42,6 +46,8 @@ public class LoadMoney {
     public String getMonetaryUnit(){
         if (this.money == ECONOMY_API) {
             return EconomyAPI.getInstance().getMonetaryUnit();
+        }else if (this.money == LLAMA_ECONOMY) {
+            return LlamaEconomy.getAPI().getMonetaryUnit();
         }
         return "$";
     }
@@ -61,6 +67,8 @@ public class LoadMoney {
                 return EconomyAPI.getInstance().myMoney(player) ;
             case PLAYER_POINT:
                 return Point.myPoint(player);
+            case LLAMA_ECONOMY:
+                return LlamaEconomy.getAPI().getMoney(player);
             default:break;
         }
         return 0;
@@ -84,6 +92,9 @@ public class LoadMoney {
             case PLAYER_POINT:
                 Point.addPoint(player, money);
                 return;
+            case LLAMA_ECONOMY:
+                LlamaEconomy.getAPI().addMoney(player, money);
+                return;
             default:break;
         }
     }
@@ -104,6 +115,9 @@ public class LoadMoney {
                 return;
             case PLAYER_POINT:
                 Point.reducePoint(player, money);
+                return;
+            case LLAMA_ECONOMY:
+                LlamaEconomy.getAPI().reduceMoney(player, money);
                 return;
             default:break;
         }
