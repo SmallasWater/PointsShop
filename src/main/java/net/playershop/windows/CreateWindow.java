@@ -80,13 +80,13 @@ public class CreateWindow {
 
     public static void sendUp(Player player){
         FormWindowCustom custom = new FormWindowCustom(PlayerShop.getInstance().getTitle()+"-- 增加物品");
-        custom.addElement(new ElementInput("请输入物品名称(自定义)"));
-        custom.addElement(new ElementInput("请输入物品介绍(自定义)"));
+        custom.addElement(new ElementInput("请输入物品名称(自定义)")); //0
+        custom.addElement(new ElementInput("请输入物品介绍(自定义)")); //1
         if(PlayerShop.getInstance().canCmd.get(player)){
-            custom.addElement(new ElementInput("请输入执行指令 @p 代表玩家 "));
+            custom.addElement(new ElementInput("请输入执行指令 @p 代表玩家 ")); //2
         }else{
             Item item = player.getInventory().getItemInHand();
-            custom.addElement(new ElementLabel("增加物品(手持) "+(item.hasCustomName()?item.getCustomName():item.getId()+":"+item.getDamage())+" * "+item.getCount()));
+            custom.addElement(new ElementLabel("增加物品(手持) "+(item.hasCustomName()?item.getCustomName():item.getId()+":"+item.getDamage())+" * "+item.getCount())); //2
         }
         player.showFormWindow(custom,UP);
 
